@@ -1,0 +1,34 @@
+### Práctica 4, Curso R
+
+#########DIA 4########
+
+###LEER UN ARCHIVO DE AUDIO####
+install.packages("audio")
+library (audio)
+christmas_file <- tempfile()
+donwload.file ("https://sites.google.com/site/pocketeworld/merrychristmas1.wav", christmas_file, mode = "wb")
+xmas <- load.wave (christmas_file)
+play(xmas)
+
+####BAJAR BASES CON LA MISMA LÓGICA DE LA CANCIÓN###
+temporal <- tempfile()
+download.file ("http://www.beta.inegi.org.mx/contenidos/proyectos/enchogares/regulares/enoe/microdatos/enoe_15ymas/2017/2017trim1_dbf.zip", temporal)
+files =unzip (temporal, list=TRUE)$Name
+unzip(temporal, files=files[grepl("dbf", files)])
+library(foreign)
+SDEMT117 <- data.frame (read.dbf ("sdemt117.dbf"))
+
+ls (SDEMT117) ###vER TODAS LAS VARIABLES DE LA BASE
+
+###Frecuencias con datos muestales
+#Método 1
+
+wtd.table (SDEMT117$POS_OCU)
+wtd.table (SDEMT117$POS_OCU, na.show =TRUE)
+
+install.packages("questionr")
+library ("questionr")
+
+73261395 + 35861932 + 2415614 + 11412989 +  2549950
+
+wtd.table (SDEMT117$ENT, weights=SDEMT117$FAC, na.show = T)
